@@ -78,7 +78,7 @@
 ## 💙 3. App Design Draft
 
 ### 3-1. Design Concept
-
+- App name: 어휘로운 생활
 - 중학교 1학년 학생들이 기본 영어 단어를 쉽고 재미있게 학습하고 복습할 수 있도록 돕는 어휘 학습 앱
 - 전체적으로 밝고 단순한 디자인을 사용, 학생들이 복잡한 설명 없이도 기능을 이해할 수 있도록 큰 버튼과 직관적인 아이콘을 배치할 예정
 - 화면 크기에 따라 구성이 조정되는 디자인을 적용할 예정 (큰 화면과 작은 화면에서 휴대폰과 컴퓨터에서 모두 편리하게 사용할 수 있도록 화면 크기에 따라 구성이 조정되는 디자인)
@@ -88,36 +88,36 @@
 
 ### 3-2. Learners
 
-- [Who will use the app? 예: Korean Grade 6 (K6) learners]
+- [Korean Grade 7 (K7) learners / 중학교 1학년 학생]
 
 ### 3-3. Goal
 
-- [What should learners be able to do after using the app? 예: Recognize the meaning, spell the word, use it in a sentence]
+- [학생들이 기본 어휘를 반복적으로 접하고, 기억에서 직접 떠올리는 연습을 통해 어휘 지식을 발전시키도록 돕는 것이다.]
 
 ### 3-4. Learning Activities
 
-- **Encounters (Webb 2007):** [How many times and in what contexts will learners meet each word?]
-- **Retrieval (Nakata et al. 2021):** [When and how often will learners recall the word from memory?]
+- **Encounters (Webb 2007):** [학생들은 Flashcards, Meaning Quiz, Spelling Practice를 통해 각 단어를 기본적으로 최소 3번 접하게 된다. Flashcards에서는 단어의 뜻과 예문을 함께 확인하고, Meaning Quiz에서는 단어의 의미를 다시 확인하며, Spelling Practice에서는 단어를 직접 입력한다. 또한 Review Again 기능을 통해 학습한 단어를 반복해서 만날 수 있도록 설계한다.]
+- **Retrieval (Nakata et al. 2021):** [학생들은 Flashcards 학습 후 Meaning Quiz에서 단어의 뜻을 기억하여 선택하고, Spelling Practice에서는 한국어 뜻을 보고 영어 철자를 직접 입력한다. 따라서 기본 학습 과정에서 최소 2번의 인출 기회를 제공하며, Review Again에서는 틀린 단어와 이전에 학습한 단어를 다시 떠올리도록 한다.]
 
 ### 3-5. Use of the List Information
 
 | Information | How our app uses it |
 |---|---|
-| Level (`*`, `**`) | [예: 단계별 학습 메뉴로 구분] |
-| Word family (e.g., *species* ~ *specify*) | [예: 같은 단어군 연결하기 퀴즈] |
-| Variation (e.g., *rumor* / *rumour*) | [예: 미국식/영국식 철자를 모두 정답으로 인정] |
+| Level (`*`, `**`) | [* 표시가 있는 초등학교 권장 어휘를 중심으로 학습을 시작하고, ** 표시가 있는 중·고등학교 공통과목 권장 어휘를 일부 포함하여 난이도를 확장.] |
+| Word family (e.g., *species* ~ *specify*) | [목록에 제시된 관련 단어를 활용. 플래시카드에서 관련 표현을 보여준 후 같은 단어군을 연결하는 활동으로 확장할 수 있도록 함.] |
+| Variation (e.g., *rumor* / *rumour*) | [제시된 미국식·영국식 표기를 함께 안내. 철자 입력 활동에서는 동일한 의미로 사용할 수 있는 표기 변이형을 모두 정답으로 인정하도록 설계.] |
 
 ### 3-6. Context Elements (LPGCTXF, Week 03)
 
 | Element | Our decision |
 |---|---|
-| L | [Week 03 자료의 요소 이름과 우리 조의 결정 내용] |
-| P | [ ... ] |
-| G | [ ... ] |
-| C | [ ... ] |
-| T | [ ... ] |
-| X | [ ... ] |
-| F | [ ... ] |
+| L | [한국의 중학교 1학년 학생을 대상으로 설정. 영어 기초 어휘를 학습하고 복습할 수 있는 앱을 제작.] |
+| P | [초등학교에서 기초 영어를 학습한 학생을 대상으로 하며, 기본적인 영어 단어의 뜻은 일부 알고 있지만 철자를 직접 기억하거나 문장 속에서 의미를 파악하는 데 추가적인 연습이 필요한 수준으로 설정.] |
+| G | [학생들이 기본 어휘의 의미를 이해하고, 한국어 뜻을 보고 영어 단어의 철자를 기억에서 인출하며, 간단한 영어 문장 속에서 학습한 단어를 인식할 수 있도록 함.] |
+| C | [2022 개정 영어과 교육과정 기본 어휘 목록에서 선정한 10개 단어를 활용. 단어의 한국어 뜻, 영어 예문, 단어군(Word-family), 표기 변이형(Variation) 정보를 학습 자료로 사용.] |
+| T | [학생이 한 번에 약 10~15분 동안 학습할 수 있도록 설계. Flashcards로 단어를 익힌 후 Meaning Quiz, Spelling Practice를 수행하고, 마지막으로 Review Again에서 틀린 단어를 복습하도록 함.] |
+| X | [별도의 회원가입이나 서버 없이 웹 브라우저에서 사용할 수 있도록 단일 HTML 파일로 제작. 학습자의 집중 시간과 영어 수준을 고려하여 복잡한 기능을 최소화하고, 휴대폰에서도 쉽게 사용할 수 있도록 구성.] |
+| F | [퀴즈와 철자 입력 활동에서 정답과 오답을 즉시 알려줌. 오답인 경우 정답을 확인할 수 있도록 하고, 틀린 단어는 Review Again에서 다시 연습할 기회를 제공. 학습 진행 상황도 간단하게 표시.] |
 
 ---
 
