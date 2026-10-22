@@ -139,7 +139,7 @@
 | Word | Word-family | Variation | Level | Meaning (Korean) | Example sentence |
 |---|---|---|---|---|---|
 | act | actual, interact | NA | Elementary (*) | 행동하다 | They acted quickly to help. |
-| [word 2] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| [agree] | [disagree] | [ ] | [ ] | [ ] | [ ] |
 | [word 3] | [ ] | [ ] | [ ] | [ ] | [ ] |
 | ... | | | | | |
 
