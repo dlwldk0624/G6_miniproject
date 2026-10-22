@@ -18,9 +18,6 @@
 | Date & Time | 10/22, [13:00] – [15:00] |
 | Location | [e.g., 1층 미래교육센터 112호] |
 
-
-> Take photos at the **start, middle, and end** of the meeting (with a clock visible). You will upload them in the Google Form.
-
 ---
 
 ## 💙 1. What We Learned from the Two Articles
