@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>어휘로운 생활 (index_v5)</title>
+<style>
+:root{
+  --ink:#1b2540; --muted:#5b6785; --blue:#2d5bff; --blue-d:#1f43c7; --sun:#ffd23f;
+  --ok:#0f9d74; --ok-bg:#e0f6ee; --bad:#d8433f; --bad-bg:#fde8e7;
+  --bg:#f3f6ff; --card:#ffffff; --line:#d9e1f5;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+button,input{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+body,main,p,li,.btn,.opt{overflow-wrap:anywhere}
+html,body{margin:0}
+body{min-height:100dvh;font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto;padding:16px max(16px,env(safe-area-inset-right)) calc(48px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0 14px}
+h1{font-size:clamp(1.4rem,5vw,1.9rem);margin:0;font-weight:800;letter-spacing:-.02em}
+h1 span{background:linear-gradient(transparent 60%,var(--sun) 60%)}
+.wrongcount{font-size:.9rem;color:var(--muted);white-space:nowrap}
+nav{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-bottom:16px}
+nav button{font:inherit;font-size:.72rem;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 2px;border:2px solid var(--line);background:#fff;border-radius:12px;cursor:pointer;color:var(--muted);font-weight:700}
+nav button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+@media (hover:hover){nav button:hover:not(.on){border-color:var(--blue)}}
+button:focus-visible,input:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+main{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:clamp(16px,4vw,28px)}
+.bar{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:6px}
+.bar i{display:block;height:100%;background:var(--blue);width:0;transition:width .3s}
+.meta{display:flex;justify-content:space-between;font-size:.9rem;color:var(--muted);margin-bottom:16px}
+.btn{font:inherit;font-weight:800;font-size:1.05rem;padding:14px 22px;border:0;border-radius:14px;background:var(--blue);color:#fff;cursor:pointer;min-height:52px}
+@media (hover:hover){.btn:hover{background:var(--blue-d)}}
+.btn.sub{background:#fff;color:var(--blue);border:2px solid var(--blue)}
+@media (hover:hover){.btn.sub:hover{background:var(--bg)}}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.row .btn{flex:1 1 140px}
+.card{min-height:240px;border:3px solid var(--blue);border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;cursor:pointer;background:var(--bg);width:100%;font:inherit;color:var(--ink)}
+.card .big{font-size:clamp(2.2rem,10vw,3.4rem);font-weight:800;letter-spacing:-.02em}
+.card .ko{font-size:clamp(1.6rem,7vw,2.2rem);font-weight:800;color:var(--blue)}
+.card .ex{font-size:1.15rem;margin-top:10px}
+.card .hint{font-size:.85rem;color:var(--muted);margin-top:14px}
+.tag{display:inline-block;font-size:.8rem;font-weight:700;padding:2px 10px;border-radius:99px;background:var(--sun);margin:8px 4px 0}
+.tag.l{background:var(--line)}
+.q{font-size:clamp(2rem,9vw,3rem);font-weight:800;text-align:center;margin:6px 0 4px}
+.sub2{text-align:center;color:var(--muted);margin:0 0 18px}
+.opts{display:grid;gap:10px}
+.opt{font:inherit;font-size:1.15rem;font-weight:700;text-align:left;padding:14px 16px;border:2px solid var(--line);border-radius:14px;background:#fff;cursor:pointer;color:var(--ink);min-height:54px}
+@media (hover:hover){.opt:hover:not(:disabled){border-color:var(--blue)}}
+.opt.ok{background:var(--ok-bg);border-color:var(--ok)}
+.opt.bad{background:var(--bad-bg);border-color:var(--bad)}
+.opt:disabled{cursor:default}
+input.ans{font:inherit;font-size:1.4rem;width:100%;padding:14px 16px;border:2px solid var(--line);border-radius:14px;text-align:center;letter-spacing:.04em}
+input.ans:focus{border-color:var(--blue)}
+.fb{margin-top:14px;padding:12px 16px;border-radius:14px;font-weight:700;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--ok-bg);color:#07694d}
+.fb.bad{background:var(--bad-bg);color:#9a2623}
+.center{text-align:center}
+.score{font-size:clamp(2.6rem,12vw,4rem);font-weight:800;color:var(--blue);margin:6px 0}
+ul.wl{list-style:none;padding:0;margin:12px 0;display:grid;gap:6px;text-align:left}
+ul.wl li{background:var(--bg);border-radius:10px;padding:8px 12px}
+h2{margin:0 0 8px;font-size:1.3rem}
+p{margin:6px 0}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;margin:14px 0;font-weight:700}
+.flow span{background:var(--bg);border:2px solid var(--line);border-radius:10px;padding:4px 10px}
+nav .ic{font-size:1.4rem;line-height:1.2}
+.logo{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--sun);font-size:1.4rem;margin-right:8px;vertical-align:middle;box-shadow:0 3px 0 #e0b400}
+.hero{font-size:4rem;line-height:1.1}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:18px 0 4px}
+.tile{font:inherit;color:var(--ink);background:var(--bg);border:2px solid var(--line);border-radius:16px;padding:14px 8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;font-weight:800}
+@media (hover:hover){.tile:hover{border-color:var(--blue);transform:translateY(-2px)}}
+.tile .ic{font-size:2.2rem;line-height:1.2}
+.tile small{font-weight:500;color:var(--muted);font-size:.78rem}
+.tile.rnd{background:var(--sun);border-color:#e0b400}
+.badge{display:table;margin:0 auto 6px;padding:4px 14px;border-radius:99px;background:var(--bg);border:2px solid var(--blue);color:var(--blue);font-weight:800;font-size:.9rem}
+.trophy{font-size:3.4rem}
+.wbox{background:#fff;border:2px dashed var(--line);border-radius:14px;padding:12px 16px;margin:10px 0;text-align:center;width:100%}
+.wbox .exs{font-size:1.1rem;color:var(--muted);margin-top:4px}
+.wbox .mid{font-size:1.6rem;font-weight:800}
+.wbox .sent{font-size:1.25rem;font-weight:700;margin:0}
+.opt.sel{border-color:var(--blue);background:#eaf0ff}
+ul.rv{list-style:none;padding:0;margin:12px 0;display:grid;gap:8px;text-align:left}
+ul.rv li{background:var(--bad-bg);border-radius:12px;padding:10px 12px}
+ul.rv small{display:block;color:var(--muted)}
+.mini{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:8px 0}
+.mini span{background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:6px 12px;font-weight:700}
+@media (max-width:480px){
+  .wrap{padding-top:10px}
+  header{padding-bottom:10px}
+  .logo{width:34px;height:34px;font-size:1.2rem;margin-right:6px}
+  nav{gap:4px}
+  nav button{font-size:.66rem;border-radius:10px;padding:6px 0}
+  nav .ic{font-size:1.25rem}
+  main{padding:14px;border-radius:16px}
+  .card{min-height:220px;padding:16px}
+  .tiles{grid-template-columns:repeat(2,1fr)}
+  .row .btn{flex:1 1 100%}
+  .row.two .btn{flex:1 1 40%}
+}
+.stage{background:linear-gradient(#1b2540,#2f3f78);border-radius:16px;padding:10px 8px 8px;text-align:center;color:#fff;margin-bottom:12px}
+.stage svg{height:150px;width:auto;display:block;margin:0 auto;overflow:visible}
+.sw{display:inline-block}
+.lvl{font-weight:800;font-size:1.15rem}
+.sw.up{animation:swUp .6s ease-out}
+.sw.down{animation:swDown .45s}
+@keyframes swUp{0%{transform:scale(.8);filter:brightness(2)}60%{transform:scale(1.15)}100%{transform:scale(1)}}
+@keyframes swDown{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+@media (max-width:480px){.stage svg{height:120px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1><span class="logo" aria-hidden="true">📚</span><span>어휘로운</span> 생활</h1>
+    <div class="wrongcount" id="wc"></div>
+  </header>
+  <nav id="nav"></nav>
+  <main id="app"><p class="center"><b>⚠️ 앱이 실행되지 않았어요.</b><br>미리보기·카카오톡·파일 앱에서는 작동하지 않을 수 있어요.<br>Chrome 또는 Safari 브라우저에서 열어 주세요.</p><noscript><p class="center">JavaScript가 꺼져 있어요. 브라우저 설정에서 켜 주세요.</p></noscript></main>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---------- 단어 데이터 ----------
+  var W = [
+    {w:"act",fam:"actual, interact",vr:[],lvl:"초등(*)",ko:"행동하다",ex:"We act in the school play."},
+    {w:"agree",fam:"disagree",vr:[],lvl:"초등(*)",ko:"동의하다",ex:"I agree with you."},
+    {w:"class",fam:"classic, classify",vr:[],lvl:"초등(*)",ko:"수업, 학급",ex:"My class starts at nine."},
+    {w:"friend",fam:"friendship",vr:[],lvl:"초등(*)",ko:"친구",ex:"She is my best friend."},
+    {w:"study",fam:"student",vr:[],lvl:"초등(*)",ko:"공부하다",ex:"I study English every day."},
+    {w:"color",fam:"",vr:["colour"],lvl:"초등(*)",ko:"색깔",ex:"My favorite color is blue."},
+    {w:"favorite",fam:"",vr:["favourite"],lvl:"초등(*)",ko:"가장 좋아하는",ex:"My favorite food is pizza."},
+    {w:"check",fam:"",vr:["cheque"],lvl:"초등(*)",ko:"확인하다",ex:"Please check your homework."},
+    {w:"decide",fam:"decision",vr:[],lvl:"초등(*)",ko:"결정하다",ex:"I decide what to wear every morning."},
+    {w:"create",fam:"creature",vr:[],lvl:"중·고(**)",ko:"만들다, 창조하다",ex:"We create a poster for English class."}
+  ];
+
+  var STEPS = [
+    {id:"home",label:"홈",ic:"🏠"},
+    {id:"flash",label:"카드",ic:"🃏"},
+    {id:"quiz",label:"뜻 퀴즈",ic:"📖"},
+    {id:"spell",label:"철자",ic:"✏️"},
+    {id:"final",label:"파이널",ic:"⚔️"},
+    {id:"review",label:"복습",ic:"🔁"}
+  ];
+
+  // ---------- 상태 ----------
+  var wrong = {};          // 틀린 단어 (word -> true)
+  var seen = {};           // 본 단어
+  var best = {quiz:null, spell:null};
+  var current = "home";
+
+  var app = document.getElementById("app");
+  var nav = document.getElementById("nav");
+  var wc = document.getElementById("wc");
+
+  // ---------- 도우미 ----------
+  function shuffle(a){
+    var b = a.slice(), i, j, t;
+    for(i=b.length-1;i>0;i--){ j=Math.floor(Math.random()*(i+1)); t=b[i]; b[i]=b[j]; b[j]=t; }
+    return b;
+  }
+  function esc(s){
+    return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});
+  }
+  function wrongList(){ return W.filter(function(x){return wrong[x.w];}); }
+  function updateHeader(){
+    var n = wrongList().length;
+    wc.textContent = n ? "다시 볼 단어 " + n + "개" : "";
+    var h = "";
+    STEPS.forEach(function(s){
+      h += '<button type="button" data-go="' + s.id + '" class="' + (s.id===current?"on":"") + '"><span class="ic" aria-hidden="true">' + s.ic + '</span><span>' + s.label + '</span></button>';
+    });
+    nav.innerHTML = h;
+    Array.prototype.forEach.call(nav.querySelectorAll("button"),function(b){
+      b.addEventListener("click",function(){ go(b.getAttribute("data-go")); });
+    });
+  }
+  function go(view){
+    current = view;
+    updateHeader();
+    if(view==="home") renderHome();
+    else if(view==="flash") renderFlash();
+    else if(view==="final") runFinal();
+    else runSession(view);
+    window.scrollTo(0,0);
+  }
+  function progress(i,total,extra){
+    return '<div class="bar"><i style="width:' + Math.round(i/total*100) + '%"></i></div>' +
+           '<div class="meta"><span>' + i + ' / ' + total + '</span><span>' + (extra||"") + '</span></div>';
+  }
+
+  // ---------- 홈 ----------
+  function renderHome(){
+    app.innerHTML =
+      '<div class="center">' +
+      '<div class="hero" aria-hidden="true">🎓</div>' +
+      '<h2>중학교 1학년 기본 영어 단어</h2>' +
+      '<p>단어 10개를 보고, 기억해 내고, 다시 복습해요.<br>한 번에 10~15분이면 충분해요.</p>' +
+      '<div class="tiles">' +
+      '<button class="tile" data-go="flash" type="button"><span class="ic">🃏</span>플래시카드<small>단어 익히기</small></button>' +
+      '<button class="tile" data-go="quiz" type="button"><span class="ic">📖</span>뜻 퀴즈<small>뜻 고르기</small></button>' +
+      '<button class="tile" data-go="spell" type="button"><span class="ic">✏️</span>철자 쓰기<small>직접 쓰기</small></button>' +
+      '<button class="tile rnd" data-go="final" type="button"><span class="ic">⚔️</span>검 키우기 파이널<small>15문제 · 검 진화</small></button>' +
+      '<button class="tile" data-go="review" type="button"><span class="ic">🔁</span>다시 복습<small>틀린 단어</small></button>' +
+      '</div>' +
+      '<div class="row"><button class="btn" id="start" type="button">학습 시작하기</button></div>' +
+      '</div>';
+    document.getElementById("start").addEventListener("click",function(){ go("flash"); });
+    Array.prototype.forEach.call(app.querySelectorAll(".tile"),function(t){
+      t.addEventListener("click",function(){ go(t.getAttribute("data-go")); });
+    });
+  }
+
+  // ---------- 플래시카드 ----------
+  function renderFlash(){
+    var i = 0, flipped = false;
+    function draw(){
+      var d = W[i];
+      seen[d.w] = true;
+      var front = '<div class="wbox"><div class="big">' + esc(d.w) + '</div><div class="exs">' + esc(d.ex) + '</div></div>' +
+                  '<div><span class="tag">' + esc(d.lvl) + '</span></div>' +
+                  '<div class="hint">카드를 눌러 뜻을 확인하세요</div>';
+      var back = '<div class="ko">' + esc(d.ko) + '</div>' +
+                 '<div class="wbox"><div class="mid">' + esc(d.w) + '</div><div class="exs">' + esc(d.ex) + '</div></div>' +
+                 '<div>' +
+                 (d.fam ? '<span class="tag l">단어군: ' + esc(d.fam) + '</span>' : '') +
+                 (d.vr.length ? '<span class="tag l">다른 표기: ' + esc(d.vr.join(", ")) + '</span>' : '') +
+                 '</div>';
+      app.innerHTML = progress(i+1,W.length,"플래시카드") +
+        '<button type="button" class="card" id="card" aria-label="카드 뒤집기">' + (flipped?back:front) + '</button>' +
+        '<div class="row">' +
+        '<button class="btn sub" id="prev" type="button"' + (i===0?" disabled":"") + '>이전</button>' +
+        '<button class="btn sub" id="flip" type="button">뒤집기</button>' +
+        (i===W.length-1
+          ? '<button class="btn" id="done" type="button">퀴즈 풀기</button>'
+          : '<button class="btn" id="next" type="button">다음</button>') +
+        '</div>';
+      document.getElementById("card").addEventListener("click",toggle);
+      document.getElementById("flip").addEventListener("click",toggle);
+      document.getElementById("prev").addEventListener("click",function(){ if(i>0){ i--; flipped=false; draw(); } });
+      var nx = document.getElementById("next");
+      if(nx) nx.addEventListener("click",function(){ i++; flipped=false; draw(); });
+      var dn = document.getElementById("done");
+      if(dn) dn.addEventListener("click",function(){ go("quiz"); });
+    }
+    function toggle(){ flipped = !flipped; draw(); }
+    draw();
+  }
+
+  // ---------- 퀴즈 / 철자 / 복습 세션 ----------
+  function runSession(kind){
+    var list, types;
+    if(kind==="quiz"){
+      list = shuffle(W); types = list.map(function(){return "q";});
+    } else if(kind==="spell"){
+      list = shuffle(W); types = list.map(function(){return "s";});
+    } else {
+      var pool = shuffle(wrongList());
+      var others = shuffle(W.filter(function(x){return !wrong[x.w];}));
+      var n = Math.max(6, pool.length);
+      list = pool.concat(others).slice(0,n);
+      types = list.map(function(_,k){ return k%2===0 ? "q" : "s"; });
+    }
+    var i = 0, correct = 0;
+    var title = kind==="quiz" ? "뜻 퀴즈" : kind==="spell" ? "철자 쓰기" : "다시 복습";
+
+    function next(){
+      if(i>=list.length){ return finish(); }
+      if(types[i]==="q") askQuiz(list[i]); else askSpell(list[i]);
+    }
+
+    function record(word, ok){
+      if(ok){ correct++; if(kind==="review") delete wrong[word.w]; }
+      else { wrong[word.w] = true; }
+      updateHeader();
+    }
+
+    function feedback(ok, msg){
+      var fb = document.getElementById("fb");
+      fb.className = "fb show " + (ok?"ok":"bad");
+      fb.textContent = (ok ? "✅ " : "❌ ") + msg;
+      var row = document.getElementById("nrow");
+      row.innerHTML = '<button class="btn" id="nx" type="button">' + (i===list.length-1?"결과 보기":"다음 문제") + '</button>';
+      var nx = document.getElementById("nx");
+      nx.addEventListener("click",function(){ i++; next(); });
+      nx.focus({preventScroll:true});
+      if(row.scrollIntoView){ row.scrollIntoView({block:"nearest",behavior:"smooth"}); }
+    }
+
+    function askQuiz(d){
+      var distract = shuffle(W.filter(function(x){return x.ko!==d.ko;})).slice(0,3).map(function(x){return x.ko;});
+      var opts = shuffle([d.ko].concat(distract));
+      var h = progress(i,list.length,title + " · 맞힌 개수 " + correct) +
+        '<div class="badge">📖 뜻 퀴즈</div><div class="wbox"><div class="q">' + esc(d.w) + '</div><div class="exs">' + esc(d.ex) + '</div></div>' +
+        '<p class="sub2">알맞은 뜻을 고르세요</p><div class="opts">';
+      opts.forEach(function(o,k){ h += '<button type="button" class="opt" data-k="' + k + '">' + esc(o) + '</button>'; });
+      h += '</div><div class="fb" id="fb" role="status"></div><div class="row" id="nrow"></div>';
+      app.innerHTML = h;
+      var btns = app.querySelectorAll(".opt");
+      Array.prototype.forEach.call(btns,function(b,k){
+        b.addEventListener("click",function(){
+          var ok = opts[k]===d.ko;
+          Array.prototype.forEach.call(btns,function(x,m){
+            x.disabled = true;
+            if(opts[m]===d.ko) x.classList.add("ok");
+          });
+          if(!ok) b.classList.add("bad");
+          record(d,ok);
+          feedback(ok, ok ? "정답이에요! " + d.w + " = " + d.ko
+                          : "아쉬워요. 정답은 '" + d.ko + "'예요. 복습에서 다시 만나요.");
+        });
+      });
+    }
+
+    function askSpell(d){
+      var accepted = [d.w].concat(d.vr);
+      var blank = d.ex.replace(new RegExp("\\b" + d.w + "\\b","i"),"_____");
+      var h = progress(i,list.length,title + " · 맞힌 개수 " + correct) +
+        '<div class="badge">✏️ 철자 쓰기</div><div class="q">' + esc(d.ko) + '</div>' +
+        '<p class="sub2">한국어 뜻을 보고 영어 단어를 쓰세요 (' + d.w.length + '글자)</p>' +
+        '<p class="center">' + esc(blank) + '</p>' +
+        '<form id="f" action="#"><input class="ans" id="ans" type="text" enterkeyhint="done" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" aria-label="영어 단어 입력"></form>' +
+        '<div class="fb" id="fb" role="status"></div>' +
+        '<div class="row" id="nrow"><button class="btn" id="chk" type="button">확인</button></div>';
+      app.innerHTML = h;
+      var input = document.getElementById("ans");
+      input.focus();
+      var done = false;
+      function check(){
+        if(done) return;
+        var v = input.value.trim().toLowerCase();
+        if(!v){
+          var fb0 = document.getElementById("fb");
+          fb0.className = "fb show bad";
+          fb0.textContent = "단어를 입력해 주세요.";
+          return;
+        }
+        done = true;
+        input.disabled = true;
+        var ok = accepted.indexOf(v) !== -1;
+        record(d,ok);
+        var alt = d.vr.length ? " (다른 표기: " + d.vr.join(", ") + ")" : "";
+        feedback(ok, ok ? "정답이에요! " + d.w + alt
+                        : "아쉬워요. 정답은 '" + d.w + "'예요." + alt);
+      }
+      document.getElementById("chk").addEventListener("click",check);
+      document.getElementById("f").addEventListener("submit",function(e){ e.preventDefault(); check(); });
+    }
+
+    function finish(){
+      var total = list.length;
+      if(kind==="quiz") best.quiz = correct + "/" + total;
+      if(kind==="spell") best.spell = correct + "/" + total;
+      var wl = wrongList();
+      var nextId = kind==="quiz" ? "spell" : kind==="spell" ? "final" : "flash";
+      var nextLabel = kind==="quiz" ? "철자 쓰기로" : kind==="spell" ? "검 키우기 파이널로" : "처음부터 다시";
+      var h = '<div class="center"><div class="trophy" aria-hidden="true">' + (correct===total ? "🏆" : correct>=total/2 ? "⭐" : "💪") + '</div><h2>' + title + ' 결과</h2>' +
+        '<div class="score">' + correct + ' / ' + total + '</div>' +
+        '<p>' + (correct===total ? "모두 맞혔어요!" : "수고했어요! 틀린 단어는 다시 복습해 봐요.") + '</p></div>';
+      if(wl.length){
+        h += '<p><b>아직 헷갈리는 단어</b></p><ul class="wl">';
+        wl.forEach(function(x){ h += '<li><b>' + esc(x.w) + '</b> — ' + esc(x.ko) + '</li>'; });
+        h += '</ul>';
+      } else if(kind==="review"){
+        h += '<p class="center">다시 볼 단어가 없어요. 잘했어요!</p>';
+      }
+      h += '<div class="row">' +
+           '<button class="btn sub" id="again" type="button">이 단계 다시 하기</button>' +
+           (wl.length && kind!=="review" ? '<button class="btn sub" id="rev" type="button">틀린 단어 복습</button>' : '') +
+           '<button class="btn" id="goNext" type="button">' + nextLabel + '</button></div>';
+      app.innerHTML = h;
+      document.getElementById("again").addEventListener("click",function(){ go(kind); });
+      document.getElementById("goNext").addEventListener("click",function(){ go(nextId); });
+      var rv = document.getElementById("rev");
+      if(rv) rv.addEventListener("click",function(){ go("review"); });
+    }
+
+    next();
+  }
+
+  // ---------- 검 키우기 파이널 (15문제) ----------
+  var TIERS = [["나뭇가지","#9a7b4f"],["녹슨 검","#8d8d8d"],["낡은 검","#a7adb5"],["청동 검","#c58a42"],
+    ["철 검","#b9c2cc"],["강철 검","#d8e0ea"],["은빛 검","#eef3fb"],["마법 검","#7ac4ff"],
+    ["불꽃 검","#ff8a3d"],["얼음 검","#8fe6ff"],["번개 검","#ffe14a"],["용사의 검","#9b7bff"],
+    ["영웅의 검","#ff5fa2"],["전설의 검","#3ee6b0"],["신화의 검","#ffd23f"],["신의 검","#ffffff"]];
+  function tier(lv){ return TIERS[Math.min(lv,TIERS.length)-1]; }
+  function blankOf(d){ return d.ex.replace(new RegExp("\\b" + d.w + "\\b","i"),"_____"); }
+
+  function swordSVG(lv){
+    var c = tier(lv)[1], bh = 44 + lv*5.5, bw = 6 + Math.min(lv,12)*0.9, tip = 160 - bh, cx = 60;
+    var gw = 14 + lv*1.2, guard = lv>=4 ? "#e0b400" : "#7a5a2e";
+    var glow = lv>=8 ? ' style="filter:drop-shadow(0 0 ' + (4+(lv-8)*1.5) + 'px ' + c + ')"' : "";
+    var x1 = cx-bw/2, x2 = cx+bw/2;
+    var g = '<svg viewBox="0 0 120 200" role="img" aria-label="검 레벨 ' + lv + '"' + glow + '>' +
+      '<polygon points="' + x1 + ',160 ' + x1 + ',' + (tip+10) + ' ' + cx + ',' + tip + ' ' + x2 + ',' + (tip+10) + ' ' + x2 + ',160" fill="' + c + '" stroke="rgba(0,0,0,.45)" stroke-width="1"/>' +
+      '<line x1="' + cx + '" y1="' + (tip+14) + '" x2="' + cx + '" y2="156" stroke="rgba(0,0,0,.3)" stroke-width="1.5"/>' +
+      '<rect x="' + (cx-gw) + '" y="158" width="' + (gw*2) + '" height="7" rx="3" fill="' + guard + '"/>' +
+      '<rect x="' + (cx-4) + '" y="165" width="8" height="22" rx="2" fill="#6b4423"/>' +
+      '<circle cx="' + cx + '" cy="191" r="5" fill="' + guard + '"/>';
+    if(lv>=6) g += '<circle cx="' + cx + '" cy="161.5" r="3" fill="' + c + '" stroke="#fff" stroke-width="1"/>';
+    if(lv>=12) g += '<text x="20" y="60" font-size="16" fill="' + c + '">✦</text><text x="88" y="90" font-size="12" fill="#fff">✦</text><text x="92" y="40" font-size="10" fill="' + c + '">✦</text>';
+    return g + '</svg>';
+  }
+  function stage(lv,anim){
+    return '<div class="sw ' + (anim||"") + '">' + swordSVG(lv) + '</div><div class="lvl">Lv.' + lv + ' · ' + tier(lv)[0] + '</div>';
+  }
+
+  function runFinal(){
+    var N = 15, qs = [], i = 0, lv = 1, maxLv = 1, log = [];
+
+    function build(){
+      var arr = [], base = {}, k, tries = 0, ok = false;
+      shuffle(W).forEach(function(d,n){ base[d.w] = n%2===0 ? "pick" : "type"; arr.push({d:d,t:base[d.w]}); });
+      shuffle(W).slice(0,N-W.length).forEach(function(d){ arr.push({d:d,t:base[d.w]==="pick" ? "type" : "pick"}); });
+      while(!ok && tries<80){
+        arr = shuffle(arr); ok = true;
+        for(k=1;k<arr.length;k++){ if(arr[k].d.w===arr[k-1].d.w){ ok=false; break; } }
+        tries++;
+      }
+      return arr;
+    }
+
+    function intro(){
+      qs = build(); i = 0; lv = 1; maxLv = 1; log = [];
+      app.innerHTML =
+        '<div class="stage">' + stage(1,"") + '</div>' +
+        '<div class="center"><h2>검 키우기 파이널</h2>' +
+        '<p>' + N + '문제를 풀며 검을 키워요!</p>' +
+        '<div class="mini"><span>✅ 정답 → 레벨 +1</span><span>❌ 오답 → 레벨 −1</span></div>' +
+        '<p>레벨은 1 아래로 내려가지 않아요.<br>🔎 빈칸 고르기 · ✍️ 빈칸 쓰기가 섞여 나와요.</p>' +
+        '<div class="row"><button class="btn" id="go" type="button">⚔️ 모험 시작</button></div></div>';
+      document.getElementById("go").addEventListener("click",ask);
+    }
+
+    function ask(){
+      if(i>=qs.length){ return result(); }
+      var q = qs[i], d = q.d, pick = q.t==="pick", sel = null, done = false, opts = [], btns = [];
+      var h = progress(i,qs.length,"문제 " + (i+1) + " · 정답 " + log.filter(function(r){return r.ok;}).length) +
+        '<div class="stage" id="stage">' + stage(lv,"") + '</div>' +
+        '<div class="badge">' + (pick ? "🔎 빈칸 고르기" : "✍️ 빈칸 쓰기") + '</div>' +
+        '<div class="wbox"><p class="sent">' + esc(blankOf(d)) + '</p></div>' +
+        '<p class="sub2">뜻 힌트: <b>' + esc(d.ko) + '</b></p>';
+      if(pick){
+        opts = shuffle([d.w].concat(shuffle(W.filter(function(x){return x.w!==d.w;})).slice(0,3).map(function(x){return x.w;})));
+        h += '<div class="opts">';
+        opts.forEach(function(o,k){ h += '<button type="button" class="opt" data-k="' + k + '">' + esc(o) + '</button>'; });
+        h += '</div>';
+      } else {
+        h += '<form id="f" action="#"><input class="ans" id="ans" type="text" enterkeyhint="done" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" aria-label="빈칸에 들어갈 영어 단어"></form>';
+      }
+      h += '<div class="fb" id="fb" role="status"></div><div class="row" id="nrow"><button class="btn" id="act" type="button">⚔️ 강화하기</button></div>';
+      app.innerHTML = h;
+
+      var input = document.getElementById("ans");
+      if(pick){
+        btns = app.querySelectorAll(".opt");
+        Array.prototype.forEach.call(btns,function(b,k){
+          b.addEventListener("click",function(){
+            if(done) return;
+            sel = opts[k];
+            Array.prototype.forEach.call(btns,function(x){ x.classList.remove("sel"); });
+            b.classList.add("sel");
+          });
+        });
+      } else {
+        input.focus();
+        document.getElementById("f").addEventListener("submit",function(e){ e.preventDefault(); submit(); });
+      }
+      document.getElementById("act").addEventListener("click",submit);
+
+      function say(ok,msg){
+        var fb = document.getElementById("fb");
+        fb.className = "fb show " + (ok ? "ok" : "bad");
+        fb.textContent = msg;
+      }
+
+      function submit(){
+        if(done) return;
+        var given = pick ? sel : input.value.trim().toLowerCase();
+        if(!given){ say(false, pick ? "먼저 답을 골라 주세요." : "단어를 입력해 주세요."); return; }
+        done = true;
+        var before = lv;
+        var ok = pick ? given===d.w : [d.w].concat(d.vr).indexOf(given)!==-1;
+        if(ok){ lv = lv + 1; } else { lv = Math.max(1, lv - 1); wrong[d.w] = true; }
+        if(lv>maxLv) maxLv = lv;
+        log.push({q:q,given:given,ok:ok});
+        document.getElementById("stage").innerHTML = stage(lv, ok ? "up" : "down");
+        if(pick){
+          Array.prototype.forEach.call(btns,function(x,m){
+            x.disabled = true;
+            if(opts[m]===d.w) x.classList.add("ok");
+            else if(opts[m]===given) x.classList.add("bad");
+          });
+        } else { input.disabled = true; }
+        var alt = d.vr.length ? " (다른 표기: " + d.vr.join(", ") + ")" : "";
+        if(ok) say(true, "✅ 정답! Lv." + before + " → Lv." + lv + " " + tier(lv)[0] + "(으)로 진화했어요!" + alt);
+        else say(false, "❌ 아쉬워요. 정답은 “" + d.w + "”예요." + alt + (before===1 ? " Lv.1은 더 내려가지 않아요." : " Lv." + before + " → Lv." + lv + "로 내려갔어요."));
+        var row = document.getElementById("nrow");
+        row.innerHTML = '<button class="btn" id="nx" type="button">' + (i===qs.length-1 ? "결과 보기" : "다음 문제") + '</button>';
+        var nx = document.getElementById("nx");
+        nx.addEventListener("click",function(){ i++; ask(); window.scrollTo(0,0); });
+        nx.focus({preventScroll:true});
+        if(row.scrollIntoView){ row.scrollIntoView({block:"nearest",behavior:"smooth"}); }
+        updateHeader();
+      }
+    }
+
+    function result(){
+      var total = log.length, score = 0, byT = {pick:0,type:0};
+      log.forEach(function(r){ if(r.ok){ score++; byT[r.q.t]++; } });
+      var rank = lv>=13 ? "전설의 검사" : lv>=9 ? "숙련된 검사" : lv>=5 ? "견습 검사" : "초보 검사";
+      var icon = lv>=13 ? "🏆" : lv>=9 ? "⭐" : lv>=5 ? "👍" : "💪";
+      var h = '<div class="stage">' + stage(lv,"up") + '</div>' +
+        '<div class="center"><h2>' + icon + ' ' + rank + '</h2><div class="score">Lv.' + lv + '</div>' +
+        '<p>정답 ' + score + ' / ' + total + ' · 최고 레벨 Lv.' + maxLv + '</p>' +
+        '<div class="mini"><span>🔎 빈칸 고르기 ' + byT.pick + '문제 정답</span><span>✍️ 빈칸 쓰기 ' + byT.type + '문제 정답</span></div></div>';
+      var bad = log.filter(function(r){ return !r.ok; });
+      if(bad.length){
+        h += '<p><b>틀린 문제 확인</b></p><ul class="rv">';
+        bad.forEach(function(r){
+          var d = r.q.d;
+          h += '<li>' + (r.q.t==="pick" ? "🔎 " : "✍️ ") + esc(d.ex.replace(new RegExp("\\b" + d.w + "\\b","i"),"[" + d.w + "]")) +
+               '<small>내 답: ' + esc(r.given) + ' · 정답: ' + esc(d.w) + ' (' + esc(d.ko) + ')</small></li>';
+        });
+        h += '</ul>';
+      } else {
+        h += '<p class="center">모두 맞혔어요! 검이 최고 레벨까지 진화했어요.</p>';
+      }
+      h += '<div class="row two"><button class="btn sub" id="retry" type="button">다시 도전</button>' +
+           (bad.length ? '<button class="btn" id="rev" type="button">틀린 단어 복습</button>' : '<button class="btn" id="home" type="button">홈으로</button>') + '</div>';
+      app.innerHTML = h;
+      document.getElementById("retry").addEventListener("click",intro);
+      var rv = document.getElementById("rev");
+      if(rv) rv.addEventListener("click",function(){ go("review"); });
+      var hm = document.getElementById("home");
+      if(hm) hm.addEventListener("click",function(){ go("home"); });
+    }
+
+    intro();
+  }
+
+  window.addEventListener("error",function(e){
+    app.insertAdjacentHTML("afterbegin",'<div class="fb show bad">⚠️ 오류: ' + esc(e.message) + '</div>');
+  });
+  try{ go("home"); }
+  catch(err){ app.innerHTML = '<div class="fb show bad">⚠️ 시작 오류: ' + esc(err.message) + '</div>'; }
+})();
+</script>
+</body>
+</html>
