@@ -151,7 +151,7 @@
 - [V] All words, meanings, and sentences are correct.
 - [V] The app gives clear feedback for right and wrong answers.
 - [V] Learners **retrieve** words and meet each word **more than once**.
-- [X, 조원 모두가 IOS 유저인 관계로 핸드폰에서 index 파일을 열어볼 수 없었습니다.] The app is easy to use on a phone.
+- [X], 조원 모두가 IOS 유저인 관계로 핸드폰에서 index 파일을 열어볼 수 없었습니다.] The app is easy to use on a phone.
 
 ### 6-2. Problems Found and How We Fixed Them
 
