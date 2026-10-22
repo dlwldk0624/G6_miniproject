@@ -157,27 +157,27 @@
 
 ### 6-1. Checklist
 
-- [ ] All features work (every button was clicked).
-- [ ] All words, meanings, and sentences are correct.
-- [ ] The app gives clear feedback for right and wrong answers.
-- [ ] Learners **retrieve** words and meet each word **more than once**.
-- [ ] The app is easy to use on a phone.
+- [V] All features work (every button was clicked).
+- [V] All words, meanings, and sentences are correct.
+- [V] The app gives clear feedback for right and wrong answers.
+- [V] Learners **retrieve** words and meet each word **more than once**.
+- [X, 조원 모두가 IOS 유저인 관계로 핸드폰에서 index 파일을 열어볼 수 없었습니다.] The app is easy to use on a phone.
 
 ### 6-2. Problems Found and How We Fixed Them
 
 | Problem | Fix |
 |---|---|
 | [예: 정답을 맞혀도 점수가 올라가지 않음] | [예: AI에게 점수 계산 부분만 고쳐 달라고 요청] |
-| [ ... ] | [ ... ] |
+| [단어 반복 학습 후 활용할 수 있는 장치를 넣지 않음] | [예문의 위치 영어단어랑 같이 묶어놓기] | [핸드폰에서 켜질 수 있도록 해달라] |
 
 ### 6-3. Saved Versions
 
-- `index_v1.html`: [what this version has]
-- `index_v2.html`: [what changed]
-- `G1_project_draft.html`: final version
+- `index_v1.html`: [홈화면, 플래시카드, 뜻 학습, 철자 쓰기, 다시 복습]
+- `index_v2.html`: [검 키우기라는 컨셉, 파이널 테스트]
+- `G6_project_draft.html`: final version
 
 ---
 
 ## 💙 7. Next Steps
 
-- [One thing we want to add or change in the next version]
+- [좀 더 재밌는 형식의 단어 학습 (예: 피파라는 게임이라는 형식의 단어학습 어플)]
