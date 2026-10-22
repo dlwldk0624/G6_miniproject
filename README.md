@@ -1,11 +1,6 @@
 # G6_miniproject
 # G6 Mini-project: Vocabulary Learning App (ver. 1.0; asof 10/22, 2026)
 
-> 📌 **How to use this sample**
-> Replace everything in `[square brackets]` with your group's own content, and delete the hint lines that start with `>`.
-> Headings stay in **English**. You may write the body in English or Korean (영어 또는 한국어).
-> Every section marked with 💙 must be completed.
-
 ---
 
 ## 👥 Group Information
@@ -48,8 +43,7 @@
 
 ### 2-1. About the List
 
-- [목록을 살펴보고 알게 된 점. 예: 3,000개 단어, `*`/`**`로 학교급 표시, 단어군(word family)과 변이형(variation) 정보 포함 등]
-2022 개정 영어과 교육과정의 기본 어휘 목록은 총 3,000개의 단어로 구성되어 있으며, 알파벳순으로 정리되어 있다.
+- 2022 개정 영어과 교육과정의 기본 어휘 목록은 총 3,000개의 단어로 구성되어 있으며, 알파벳순으로 정리되어 있다.
 단어 옆에 표시된 *는 초등학교 권장 어휘 800개, **는 중학교 및 고등학교 공통과목 권장 어휘 1,200개를 의미한다. 별표가 없는 단어는 고등학교 선택과목에서 활용할 수 있다.
 일부 단어에는 괄호 안에 관련 단어군(Word-family)이 함께 제시되어 있어 하나의 단어에서 확장되는 표현을 학습할 수 있다.
 또한 color / colour처럼 미국식과 영국식 영어의 표기 차이를 보여주는 변이형(Variation)도 포함되어 있다.
@@ -94,6 +88,7 @@
 ### 3-4. Learning Activities
 
 - **Encounters (Webb 2007):** [학생들은 Flashcards, Meaning Quiz, Spelling Practice를 통해 각 단어를 기본적으로 최소 3번 접하게 된다. Flashcards에서는 단어의 뜻과 예문을 함께 확인하고, Meaning Quiz에서는 단어의 의미를 다시 확인하며, Spelling Practice에서는 단어를 직접 입력한다. 또한 Review Again 기능을 통해 학습한 단어를 반복해서 만날 수 있도록 설계한다.]
+
 - **Retrieval (Nakata et al. 2021):** [학생들은 Flashcards 학습 후 Meaning Quiz에서 단어의 뜻을 기억하여 선택하고, Spelling Practice에서는 한국어 뜻을 보고 영어 철자를 직접 입력한다. 따라서 기본 학습 과정에서 최소 2번의 인출 기회를 제공하며, Review Again에서는 틀린 단어와 이전에 학습한 단어를 다시 떠올리도록 한다.]
 
 ### 3-5. Use of the List Information
@@ -119,8 +114,6 @@
 ---
 
 ## 💙 4. App Features
-
-> Choose **3–4 core features** only. Write one sentence for each: "This feature helps learners ___ because ___."
 
 1. **[Feature 1: Flashcards (word → meaning)]**: This feature helps learners [understand word meanings and see how words are used] because [it shows each word with its Korean meaning and a simple English sentence].
 2. **[Feature 2: Meaning Quiz]**: This feature helps learners [remember word meanings] because [they have to choose the correct meaning without looking at the answer].
