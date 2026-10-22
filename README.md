@@ -125,10 +125,10 @@
 
 > Choose **3–4 core features** only. Write one sentence for each: "This feature helps learners ___ because ___."
 
-1. **[Feature 1, e.g., Flashcards (word → meaning)]**: This feature helps learners [ ___ ] because [ ___ ].
-2. **[Feature 2]**: This feature helps learners [ ___ ] because [ ___ ].
-3. **[Feature 3]**: This feature helps learners [ ___ ] because [ ___ ].
-4. **[Feature 4 (optional)]**: This feature helps learners [ ___ ] because [ ___ ].
+1. **[Feature 1: Flashcards (word → meaning)]**: This feature helps learners [understand word meanings and see how words are used] because [it shows each word with its Korean meaning and a simple English sentence].
+2. **[Feature 2: Meaning Quiz]**: This feature helps learners [remember word meanings] because [they have to choose the correct meaning without looking at the answer].
+3. **[Feature 3: Spelling Practice]**: This feature helps learners [remember how to spell words] because [they have to type the correct English word from memory].
+4. **[Feature 4: Review Again]**: This feature helps learners [remember words for a longer time] because [they can practice words they got wrong and review words they learned before].
 
 ---
 
