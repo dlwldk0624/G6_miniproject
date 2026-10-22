@@ -139,9 +139,15 @@
 | Word | Word-family | Variation | Level | Meaning (Korean) | Example sentence |
 |---|---|---|---|---|---|
 | act | actual, interact | NA | Elementary (*) | 행동하다 | They acted quickly to help. |
-| [agree] | [disagree] | [ ] | [ ] | [ ] | [ ] |
-| [word 3] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| ... | | | | | |
+| agree | disagree | NA | Elementary (*) | 동의하다 | I agree with your idea. |
+| class | classic, classify | NA | Elementary (*) | 수업, 학급 | Our English class starts at nine. |
+| friend | friendship | NA | Elementary (*) | 친구 | She is my best friend. |
+| study | student | NA | Elementary (*) | 공부하다 | I study English every day. |
+| color | NA | colour | Elementary (*) | 색깔 | My favorite color is blue. |
+| favorite | NA | favourite | Elementary (*) | 가장 좋아하는 | My favorite subject is English. |
+| check | NA | cheque | Elementary (*) | 확인하다 | Please check your answers. |
+| decide | decision | NA | Elementary (*) | 결정하다 | I decided to join the club. |
+| create | creature | NA | Middle/High (**) | 만들다, 창조하다 | We create a poster for our class. |
 
 ---
 
