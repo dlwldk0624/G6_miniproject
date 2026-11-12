@@ -6,7 +6,11 @@
 기록자: 최동빈
 단어 파일, 코드 생성 및 관리: 이지아
 스트림릿 관련 업무: 정예원
-- Project link: (e.g., [https://github.com/mk316](https://github.com/mk316))
+- Project link:
+https://github.com/dlwldk0624
+https://github.com/kh1-120
+https://github.com/jyw7105
+https://github.com/dongbinchoi
 
 ## 2. Target Learners
 Who is this app designed for? (한국 학습자 기준으로 정보를 바꿀 것: 예) 중1, 고2)
