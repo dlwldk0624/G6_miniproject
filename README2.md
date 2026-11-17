@@ -12,9 +12,12 @@
 
 ## 2. Target Learners
 Who is this app designed for? (한국 학습자 기준으로 정보를 바꿀 것: 예) 중1, 고2)
+This app is designed for **Korean Grade 7 learners (중학교 1학년 학생)**.
 
 ## 3. Learning Goal
 What should learners practice or learn?
+The goal of this app is to help learners develop basic English vocabulary knowledge through **repeated exposure and retrieval practice**.
+- Learners practice understanding word meanings, recalling English spellings from Korean meanings, listening to word pronunciation, and reviewing words they answered incorrectly.
 
 ## 4. What We Updated
 Write what you changed from the first version. Use lists.
