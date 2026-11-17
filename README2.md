@@ -8,10 +8,7 @@
   - 최동빈 (기록자)
   - 김한일 (팀원)
 - Project link:
-https://github.com/dlwldk0624
-https://github.com/kh1-120
-https://github.com/jyw7105
-https://github.com/dongbinchoi
+  https://github.com/dlwldk0624/G6_miniproject
 
 ## 2. Target Learners
 Who is this app designed for? (한국 학습자 기준으로 정보를 바꿀 것: 예) 중1, 고2)
