@@ -5,92 +5,92 @@ import pandas as pd
 import streamlit as st
 
 
-# =========================================================
-# PAGE SETUP
-# =========================================================
-
 st.set_page_config(
     page_title="어휘로운 생활",
     page_icon="📚",
     layout="centered",
 )
 
-st.markdown(
-    """
-    <style>
-    .block-container {
-        max-width: 900px;
-        padding-top: 2rem;
-        padding-bottom: 4rem;
-    }
+DATA_PATH = Path(__file__).parent / "vocabulary.csv"
 
-    .app-title {
-        font-size: 2.2rem;
-        font-weight: 900;
-        color: #1f43c7;
-        margin-bottom: 0.2rem;
-    }
+REQUIRED_COLUMNS = [
+    "No.",
+    "Word",
+    "Level",
+    "Korean meaning (뜻)",
+    "Variation",
+    "Star mark",
+    "Original entry",
+    "PDF page",
+]
 
-    .app-subtitle {
-        color: #5b6785;
-        margin-bottom: 1rem;
-    }
 
-    .word-card {
-        border: 2px solid #d9e1f5;
-        border-radius: 18px;
-        padding: 28px 24px;
-        text-align: center;
-        background: #ffffff;
-        margin: 12px 0 18px 0;
-    }
+@st.cache_data
+def load_data(path):
+    try:
+        data = pd.read_csv(path, encoding="utf-8-sig")
+    except UnicodeDecodeError:
+        data = pd.read_csv(path, encoding="cp949")
 
-    .word-main {
-        font-size: 2.6rem;
-        font-weight: 900;
-        color: #2d5bff;
-        margin-bottom: 0.5rem;
-    }
+    missing = [c for c in REQUIRED_COLUMNS if c not in data.columns]
+    if missing:
+        raise ValueError("Missing columns: " + ", ".join(missing))
 
-    .word-meaning {
-        font-size: 1.6rem;
-        font-weight: 800;
-        color: #1b2540;
-        margin-bottom: 0.7rem;
-    }
+    data = data.copy()
+    data["Word"] = data["Word"].astype(str).str.strip()
+    data["Level"] = data["Level"].astype(str).str.strip()
+    data["Korean meaning (뜻)"] = data["Korean meaning (뜻)"].astype(str).str.strip()
+    return data
 
-    .small-note {
-        color: #5b6785;
-        font-size: 0.9rem;
-    }
 
-    .data-ok {
-        padding: 12px 14px;
-        background: #e0f6ee;
-        color: #07694d;
-        border-radius: 12px;
-        font-weight: 800;
-        margin-bottom: 14px;
-    }
+try:
+    vocab = load_data(DATA_PATH)
+except Exception as e:
+    st.error("vocabulary.csv를 불러오지 못했습니다.")
+    st.exception(e)
+    st.stop()
 
-    .data-warn {
-        padding: 12px 14px;
-        background: #fde8e7;
-        color: #9a2623;
-        border-radius: 12px;
-        font-weight: 800;
-        margin-bottom: 14px;
-    }
 
-    .review-card {
-        background: #f5f7ff;
-        border: 1px solid #d9e1f5;
-        border-radius: 14px;
-        padding: 12px 14px;
-        margin: 7px 0;
-    }
+total_words = len(vocab)
+unique_words = vocab["Word"].nunique()
+duplicate_words = total_words - unique_words
+level_counts = vocab["Level"].value_counts().to_dict()
 
-    @media (max-width: 600px) {
-        .block-container {
-            padding-left: 1rem;
-            padding-right: 1rem;
+expected_levels = {
+    "Elementary": 800,
+    "MidHigh": 1200,
+    "Extended": 1000,
+}
+
+full_data_ok = (
+    total_words == 3000
+    and unique_words == 3000
+    and duplicate_words == 0
+    and all(level_counts.get(k, 0) == v for k, v in expected_levels.items())
+)
+
+
+def init_state():
+    defaults = {
+        "review_ids": [],
+        "flash_ids": [],
+        "flash_pos": 0,
+        "flash_show": False,
+        "quiz_items": [],
+        "quiz_pos": 0,
+        "quiz_score": 0,
+        "quiz_answered": False,
+        "quiz_correct": None,
+        "spell_ids": [],
+        "spell_pos": 0,
+        "spell_score": 0,
+        "spell_answered": False,
+        "spell_correct": None,
+        "review_session": [],
+        "review_pos": 0,
+        "review_answered": False,
+        "review_correct": None,
+        "review_options": [],
+        "last_level": "All",
+    }
+    for key, value in defaults.items():
