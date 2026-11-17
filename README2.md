@@ -3,9 +3,10 @@
 ## 1. Group Information
 - Group: 6
 - Members (역할):
-기록자: 최동빈
-단어 파일, 코드 생성 및 관리: 이지아
-스트림릿 관련 업무: 정예원
+  - 이지아 (단어 파일, 코드 생성 및 관리)
+  - 정예원 (Streamlit 관련 업무)
+  - 최동빈 (기록자)
+  - 김한일 (팀원)
 - Project link:
 https://github.com/dlwldk0624
 https://github.com/kh1-120
