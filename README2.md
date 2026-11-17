@@ -62,7 +62,6 @@ Explain how the app uses the CSV file. 앱에 사용된 데이터 파일(csv) �
 [vocabulary.csv](./vocabulary.csv)
 
 ## 7. What We Learned Through This Group Activity
-Write 2–4 sentences.
 Through this group activity, we learned how to develop an HTML vocabulary prototype into a data-connected Streamlit application. We also learned how to connect and manage a large CSV vocabulary dataset and use it in different learning activities. During deployment, we solved several problems related to file names, file paths, and Streamlit settings. This process helped us understand the importance of testing and debugging when developing an educational application.
 
 ## 8. Streamlit App
