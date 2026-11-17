@@ -71,26 +71,26 @@ full_data_ok = (
 
 
 def init_state():
-    defaults = {
-        "review_ids": [],
-        "flash_ids": [],
-        "flash_pos": 0,
-        "flash_show": False,
-        "quiz_items": [],
-        "quiz_pos": 0,
-        "quiz_score": 0,
-        "quiz_answered": False,
-        "quiz_correct": None,
-        "spell_ids": [],
-        "spell_pos": 0,
-        "spell_score": 0,
-        "spell_answered": False,
-        "spell_correct": None,
-        "review_session": [],
-        "review_pos": 0,
-        "review_answered": False,
-        "review_correct": None,
-        "review_options": [],
-        "last_level": "All",
-    }
-    for key, value in defaults.items():
+    if "review_ids" not in st.session_state:
+        st.session_state.review_ids = []
+    if "flash_ids" not in st.session_state:
+        st.session_state.flash_ids = []
+    if "flash_pos" not in st.session_state:
+        st.session_state.flash_pos = 0
+    if "flash_show" not in st.session_state:
+        st.session_state.flash_show = False
+    if "quiz_items" not in st.session_state:
+        st.session_state.quiz_items = []
+    if "quiz_pos" not in st.session_state:
+        st.session_state.quiz_pos = 0
+    if "quiz_score" not in st.session_state:
+        st.session_state.quiz_score = 0
+    if "quiz_answered" not in st.session_state:
+        st.session_state.quiz_answered = False
+    if "quiz_correct" not in st.session_state:
+        st.session_state.quiz_correct = None
+    if "spell_ids" not in st.session_state:
+        st.session_state.spell_ids = []
+    if "spell_pos" not in st.session_state:
+        st.session_state.spell_pos = 0
+    if "spell_score" not in st.session_state:
