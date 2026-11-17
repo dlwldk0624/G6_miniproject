@@ -49,9 +49,21 @@ List the main 3–4 features.
 
 ## 6. Vocabulary Data
 Explain how the app uses the CSV file. 앱에 사용된 데이터 파일(csv) 링크도 꼭 포함시킬 것.
+- The app loads vocabulary directly from the CSV file using **pandas**.
+
+- The dataset contains **3,000 unique vocabulary items**:
+  - Elementary: 800 words
+  - MidHigh: 1,200 words
+  - Extended: 1,000 words
+
+- The app uses information such as the English word, Korean meaning, vocabulary level, and related vocabulary or variation information. Learners can select a vocabulary level, and when **All** is selected, the full 3,000-word dataset is used as the learning pool.
+
+- CSV file:  
+[vocabulary.csv](./vocabulary.csv)
 
 ## 7. What We Learned Through This Group Activity
 Write 2–4 sentences.
+Through this group activity, we learned how to develop an HTML vocabulary prototype into a data-connected Streamlit application. We also learned how to connect and manage a large CSV vocabulary dataset and use it in different learning activities. During deployment, we solved several problems related to file names, file paths, and Streamlit settings. This process helped us understand the importance of testing and debugging when developing an educational application.
 
 ## 8. Streamlit App
-[Open our Streamlit app](YOUR_STREAMLIT_URL)
+[Open our Streamlit app](https://vocab-life.streamlit.app/)
