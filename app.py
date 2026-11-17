@@ -1,96 +1,95 @@
 from pathlib import Path
 import random
-
 import pandas as pd
 import streamlit as st
 
+st.set_page_config(page_title="어휘로운 생활", page_icon="📚")
 
-# =========================================================
-# PAGE SETUP
-# =========================================================
+@st.cache_data
+def load_vocab():
+    path = Path(__file__).parent / "vocabulary.csv"
+    try:
+        df = pd.read_csv(path, encoding="utf-8-sig")
+    except UnicodeDecodeError:
+        df = pd.read_csv(path, encoding="cp949")
+    df["Word"] = df["Word"].astype(str).str.strip()
+    df["Level"] = df["Level"].astype(str).str.strip()
+    df["Korean meaning (뜻)"] = df["Korean meaning (뜻)"].astype(str).str.strip()
+    return df
 
-st.set_page_config(
-    page_title="어휘로운 생활",
-    page_icon="📚",
-    layout="centered",
-)
+df = load_vocab()
+st.title("📚 어휘로운 생활")
+st.caption("G6 Vocabulary Learning App")
 
-st.markdown(
-    """
-    <style>
-    .block-container {
-        max-width: 900px;
-        padding-top: 2rem;
-        padding-bottom: 4rem;
-    }
+if len(df) == 3000 and df["Word"].nunique() == 3000:
+    st.success("✅ Vocabulary loaded: 3,000 words")
+else:
+    st.error(f"데이터 확인 필요: {len(df)} rows / {df['Word'].nunique()} unique")
 
-    .app-title {
-        font-size: 2.2rem;
-        font-weight: 900;
-        color: #1f43c7;
-        margin-bottom: 0.2rem;
-    }
+level = st.sidebar.selectbox("학습 수준", ["All", "Elementary", "MidHigh", "Extended"])
+pool = df if level == "All" else df[df["Level"] == level]
+st.sidebar.write(f"현재 학습 풀: {len(pool):,} words")
 
-    .app-subtitle {
-        color: #5b6785;
-        margin-bottom: 1rem;
-    }
+for key, value in {"review": [], "flash": None, "quiz": None, "spell": None}.items():
+    if key not in st.session_state:
+        st.session_state[key] = value
 
-    .word-card {
-        border: 2px solid #d9e1f5;
-        border-radius: 18px;
-        padding: 28px 24px;
-        text-align: center;
-        background: #ffffff;
-        margin: 12px 0 18px 0;
-    }
+tab1, tab2, tab3, tab4 = st.tabs(["🃏 Flashcards", "📖 Meaning Quiz", "✏️ Spelling", "🔁 Review"])
 
-    .word-main {
-        font-size: 2.6rem;
-        font-weight: 900;
-        color: #2d5bff;
-        margin-bottom: 0.5rem;
-    }
+with tab1:
+    st.subheader("Flashcards")
+    if st.button("새 카드 뽑기"):
+        st.session_state.flash = pool.sample(1).iloc[0].to_dict()
+    if st.session_state.flash:
+        r = st.session_state.flash
+        st.markdown(f"## {r['Word']}")
+        with st.expander("뜻 보기"):
+            st.write(r["Korean meaning (뜻)"])
+            st.caption(f"Level: {r['Level']}")
 
-    .word-meaning {
-        font-size: 1.6rem;
-        font-weight: 800;
-        color: #1b2540;
-        margin-bottom: 0.7rem;
-    }
+with tab2:
+    st.subheader("Meaning Quiz")
+    if st.button("새 뜻 퀴즈"):
+        r = pool.sample(1).iloc[0]
+        wrongs = pool[pool["Korean meaning (뜻)"] != r["Korean meaning (뜻)"]].sample(3)
+        opts = wrongs["Korean meaning (뜻)"].tolist() + [r["Korean meaning (뜻)"]]
+        random.shuffle(opts)
+        st.session_state.quiz = {"no": int(r["No."]), "word": r["Word"], "answer": r["Korean meaning (뜻)"], "opts": opts}
+    if st.session_state.quiz:
+        q = st.session_state.quiz
+        choice = st.radio(q["word"], q["opts"], index=None, key="quiz_choice")
+        if st.button("뜻 정답 확인") and choice:
+            if choice == q["answer"]:
+                st.success("✅ 정답!")
+            else:
+                st.error(f"❌ 정답: {q['answer']}")
+                if q["no"] not in st.session_state.review:
+                    st.session_state.review.append(q["no"])
 
-    .small-note {
-        color: #5b6785;
-        font-size: 0.9rem;
-    }
+with tab3:
+    st.subheader("Spelling Practice")
+    if st.button("새 철자 문제"):
+        r = pool.sample(1).iloc[0]
+        st.session_state.spell = {"no": int(r["No."]), "word": r["Word"], "meaning": r["Korean meaning (뜻)"]}
+    if st.session_state.spell:
+        q = st.session_state.spell
+        st.write(f"뜻: **{q['meaning']}**")
+        answer = st.text_input("영어 단어 입력", key="spell_input")
+        if st.button("철자 정답 확인") and answer:
+            if answer.strip().lower() == q["word"].lower():
+                st.success("✅ 정답!")
+            else:
+                st.error(f"❌ 정답: {q['word']}")
+                if q["no"] not in st.session_state.review:
+                    st.session_state.review.append(q["no"])
 
-    .data-ok {
-        padding: 12px 14px;
-        background: #e0f6ee;
-        color: #07694d;
-        border-radius: 12px;
-        font-weight: 800;
-        margin-bottom: 14px;
-    }
-
-    .data-warn {
-        padding: 12px 14px;
-        background: #fde8e7;
-        color: #9a2623;
-        border-radius: 12px;
-        font-weight: 800;
-        margin-bottom: 14px;
-    }
-
-    .review-card {
-        background: #f5f7ff;
-        border: 1px solid #d9e1f5;
-        border-radius: 14px;
-        padding: 12px 14px;
-        margin: 7px 0;
-    }
-
-    @media (max-width: 600px) {
-        .block-container {
-            padding-left: 1rem;
-            padding-right: 1rem;
+with tab4:
+    st.subheader("Review Again")
+    if not st.session_state.review:
+        st.success("복습할 단어가 없어요.")
+    else:
+        review_df = df[df["No."].isin(st.session_state.review)][["Word", "Korean meaning (뜻)", "Level"]]
+        st.dataframe(review_df, use_container_width=True, hide_index=True)
+        if st.button("복습 목록 비우기"):
+            st.session_state.review = []
+            st.rerun()
